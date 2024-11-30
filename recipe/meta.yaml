@@ -6,29 +6,31 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/xrf-tomo-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/xrf-tomo-{{ version }}.tar.gz
   sha256: 7848c54c802032ced122423bdfd8cfc03838a4959fccb4284dadf48737d7af42
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.7
+    - python {{ python_min }}
   run:
     - h5py
     - numpy
     - pandas
-    - python >=3.7
+    - python >={{ python_min }}
     - scipy
     - tomopy
     - pystackreg
     - pyxrf >=1.0.16
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - xrf_tomo
 
